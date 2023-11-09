@@ -3,20 +3,29 @@ import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Form({ addHandler }) {
-
-    const [text, setValue] = useState('');
-
-    const onChange = (text) => {
-        setValue (text);
+    const [text, setText] = useState('');
+  
+    const onChangeText = (newText) => {
+      setText(newText);
     };
-
-  return (
-    <View>
-        <TextInput style={styles.input} onChangeText={onChange} placeholder='Input new Case...' />
-        <Button color='blue' onPress={() => addHandler(text)} title='Add Case' />
-    </View>
-  );
-}
+  
+    const handleButtonPress = () => {
+      addHandler(text);
+      setText('');
+    };
+  
+    return (
+      <View>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          placeholder='Input new Case...'
+          value={text} // Устанавливаем значение из состояния
+        />
+        <Button color='blue' onPress={handleButtonPress} title='Add Case' />
+      </View>
+    );
+  }
 
 const styles = StyleSheet.create({
     input:{
